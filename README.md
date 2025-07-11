@@ -1,4 +1,4 @@
-# kalman_Filter
+
 # 🧠 Kalman Filter - Python Implementation
 
 This project provides a simple implementation of a **Kalman Filter** to estimate the position and velocity of a moving object based on noisy measurements over time. It is written in pure Python using NumPy and Matplotlib.
