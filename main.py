@@ -54,7 +54,7 @@ class KalmanFilterGUI:
         self.real_positions = []
         self.measurements = []
         self.measurement_times = []
-        self.step = 0
+        self.step = 0.0
     
     def create_sliders(self):
         """Create parameter control sliders"""
