@@ -28,14 +28,7 @@ class KalmanFilterGUI:
         # Adjust subplot positions to make room for controls
         plt.subplots_adjust(bottom=0.4, hspace=0.3)
         
-        # Create sliders
-        self.create_sliders()
-        
-        # Create buttons
-        self.create_buttons()
-    
-        
-        # Initial plot
+
         self.update_plot()
         
         # Start simulation
@@ -55,90 +48,7 @@ class KalmanFilterGUI:
         self.measurements = []
         self.measurement_times = []
         self.step = 0.0
-    
-    def create_sliders(self):
-        """Create parameter control sliders"""
-        # Define slider positions
-        slider_height = 0.02
-        slider_width = 0.15
-        left_col = 0.1
-        right_col = 0.55
-        
-        # Left column sliders
-        ax_init_x = plt.axes([left_col, 0.32, slider_width, slider_height])
-        self.slider_init_x = Slider(ax_init_x, 'Initial Pos', -5.0, 5.0, valinit=self.initial_x)
-        
-        ax_init_v = plt.axes([left_col, 0.28, slider_width, slider_height])
-        self.slider_init_v = Slider(ax_init_v, 'Initial Vel', -2.0, 2.0, valinit=self.initial_v)
-        
-        ax_accel_noise = plt.axes([left_col, 0.24, slider_width, slider_height])
-        self.slider_accel_noise = Slider(ax_accel_noise, 'Accel Noise', 0.01, 1.0, valinit=self.acceleration_noise)
-        
-        ax_real_accel = plt.axes([left_col, 0.20, slider_width, slider_height])
-        self.slider_real_accel = Slider(ax_real_accel, 'Real Accel', -2.0, 2.0, valinit=self.real_acceleration)
-        
-        # Right column sliders
-        ax_dt = plt.axes([right_col, 0.32, slider_width, slider_height])
-        self.slider_dt = Slider(ax_dt, 'Time Step', 0.0001, 0.01, valinit=self.dt)
-        
-        ax_meas_var = plt.axes([right_col, 0.28, slider_width, slider_height])
-        self.slider_meas_var = Slider(ax_meas_var, 'Meas Variance', 0.001, 0.1, valinit=self.measurement_variance)
-        
-        ax_meas_steps = plt.axes([right_col, 0.24, slider_width, slider_height])
-        self.slider_meas_steps = Slider(ax_meas_steps, 'Meas Interval', 1, 10, valinit=self.measurement_steps, valfmt='%d')
-        
-        ax_num_steps = plt.axes([right_col, 0.20, slider_width, slider_height])
-        self.slider_num_steps = Slider(ax_num_steps, 'Num Steps', 50, 500, valinit=self.num_steps, valfmt='%d')
-        
-        # Connect sliders to update function
-        self.slider_init_x.on_changed(self.update_params)
-        self.slider_init_v.on_changed(self.update_params)
-        self.slider_accel_noise.on_changed(self.update_params)
-        self.slider_real_accel.on_changed(self.update_params)
-        self.slider_dt.on_changed(self.update_params)
-        self.slider_meas_var.on_changed(self.update_params)
-        self.slider_meas_steps.on_changed(self.update_params)
-        self.slider_num_steps.on_changed(self.update_params)
-    
-    def create_buttons(self):
-        """Create control buttons"""
-        ax_reset = plt.axes([0.35, 0.15, 0.1, 0.04])
-        self.btn_reset = Button(ax_reset, 'Reset')
-        self.btn_reset.on_clicked(self.reset_clicked)
-        
-        ax_start_stop = plt.axes([0.5, 0.15, 0.1, 0.04])
-        self.btn_start_stop = Button(ax_start_stop, 'Start/Stop')
-        self.btn_start_stop.on_clicked(self.start_stop_clicked)
 
-    
-    def update_params(self, val):
-        """Update parameters from sliders"""
-        self.initial_x = self.slider_init_x.val
-        self.initial_v = self.slider_init_v.val
-        self.acceleration_noise = self.slider_accel_noise.val
-        self.real_acceleration = self.slider_real_accel.val
-        self.dt = self.slider_dt.val
-        self.measurement_variance = self.slider_meas_var.val
-        self.measurement_steps = int(self.slider_meas_steps.val)
-        self.num_steps = int(self.slider_num_steps.val)
-        
-        # Reset simulation with new parameters
-        self.reset_simulation()
-        self.update_plot()
-    
-    def reset_clicked(self, event):
-        """Reset button callback"""
-        self.reset_simulation()
-        self.update_plot()
-    
-    def start_stop_clicked(self, event):
-        """Start/Stop button callback"""
-        if self.running:
-            self.running = False
-        else:
-            self.running = True
-            self.start_simulation()
-    
     def start_simulation(self):
         """Start the simulation in a separate thread"""
         if not self.running:
@@ -238,5 +148,4 @@ class KalmanFilterGUI:
         plt.draw()
 if __name__ == "__main__":
     # Create and run the GUI
-    gui = KalmanFilterGUI()
     plt.show()
