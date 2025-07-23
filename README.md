@@ -13,7 +13,7 @@ This project provides a simple implementation of a **Kalman Filter** to estimate
 - Visualization of position and velocity estimates
 - Easily configurable measurement noise and time steps
 
----
+---![alt text](image.png)
 
 ## 🛠️ Installation
 
